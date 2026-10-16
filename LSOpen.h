@@ -15,8 +15,7 @@
  * are gone rather than stubbed.
  *
  * WHAT LAUNCHING MEANS HERE, AND WHAT IT DOES NOT. This SPAWNS the application's process: it resolves the
- * executable — from `CFBundleExecutable`, because `CFBundleCopyExecutableURL` is broken in this tree's Core
- * Foundation, measured and stated in `LSOpen.c` — and calls `posix_spawn`. It does NOT bring the application to
+ * executable through `CFBundleCopyExecutableURL` and calls `posix_spawn`. It does NOT bring the application to
  * the front, it does NOT route a document to an already-running instance, and it does NOT track the process's
  * lifetime — those are ACTIVATION, SINGLE-INSTANCE and the SESSION, and the plan puts them in the `session`
  * component (`WORKSPACE-PLAN.md` §2 and W13). A launched process is therefore a child this library does not

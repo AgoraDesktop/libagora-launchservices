@@ -20,7 +20,6 @@
 
 #include <errno.h>
 #include <spawn.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
@@ -47,62 +46,20 @@ static bool urlIsApplicationBundle(CFURLRef url)
 	return isApp;
 }
 
-/* **THE EXECUTABLE, RESOLVED HERE BECAUSE `CFBundleCopyExecutableURL` IS BROKEN IN THIS TREE'S CORE
- * FOUNDATION — MEASURED, not assumed.** It answers NULL for a MODERN `.app`, and the real `Workspace.app` is
- * no exception: the in-bundle search never reaches `Contents/MacOS`. The fix belongs in `libagora-core`;
- * until it lands, this resolves the same two places Apple documents, in Apple's own order —
- * `Contents/MacOS/<name>` first, then the wrapper itself for an old-style bundle.
- *
- * WHAT IS STILL APPLE'S IS THE NAME: `CFBundleExecutable`, read through `CFBundleGetValueForInfoDictionaryKey`,
- * which DOES work. What is ours is only the two paths. */
-static CFURLRef copyExecutableURL(CFURLRef appURL)
-{
-	CFBundleRef bundle = CFBundleCreate(NULL, appURL);
-	CFStringRef name = NULL, path = NULL;
-	CFURLRef result = NULL;
-
-	if (bundle != NULL) name = (CFStringRef)CFBundleGetValueForInfoDictionaryKey(bundle, CFSTR("CFBundleExecutable"));
-	if (name != NULL && CFGetTypeID(name) != CFStringGetTypeID()) name = NULL;
-	path = CFURLCopyFileSystemPath(appURL, kCFURLPOSIXPathStyle);
-
-	if (name != NULL && path != NULL) {
-		char nameBuffer[512], baseBuffer[4096];
-		const char *patterns[2] = { "%s/Contents/MacOS/%s", "%s/%s" };
-		int i;
-
-		CFStringGetCString(name, nameBuffer, sizeof nameBuffer, kCFStringEncodingUTF8);
-		CFStringGetCString(path, baseBuffer, sizeof baseBuffer, kCFStringEncodingUTF8);
-		for (i = 0; i < 2 && result == NULL; i++) {
-			char full[4096], resolved[4096];
-			CFStringRef string;
-			CFURLRef url;
-			struct stat status;
-
-			snprintf(full, sizeof full, patterns[i], baseBuffer, nameBuffer);
-			string = CFStringCreateWithCString(NULL, full, kCFStringEncodingUTF8);
-			url = CFURLCreateWithFileSystemPath(NULL, string, kCFURLPOSIXPathStyle, false);
-			CFRelease(string);
-			if (url == NULL) continue;
-			if (CFURLGetFileSystemRepresentation(url, true, (UInt8 *)resolved, sizeof resolved) &&
-			    stat(resolved, &status) == 0 && S_ISREG(status.st_mode)) result = url;
-			else CFRelease(url);
-		}
-	}
-	if (path != NULL) CFRelease(path);
-	if (bundle != NULL) CFRelease(bundle);
-	return result;			/* +1, or NULL */
-}
-
-/* Spawn the application's process with `arguments` (CFStringRef paths, or NULL). */
+/* Resolve the bundle's executable and spawn it with `arguments` (CFStringRef paths, or NULL). */
 static OSStatus launchApplicationAtURL(CFURLRef appURL, CFArrayRef arguments)
 {
-	CFURLRef executable = copyExecutableURL(appURL);
+	CFBundleRef bundle = CFBundleCreate(NULL, appURL);
+	CFURLRef executable;
 	char executablePath[4096];
 	CFIndex extra, i;
 	char **argv;
 	pid_t pid = 0;
 	int rc;
 
+	if (bundle == NULL) return kLSNotAnApplicationErr;
+	executable = CFBundleCopyExecutableURL(bundle);
+	CFRelease(bundle);
 	if (executable == NULL) return kLSNoExecutableErr;
 	if (!CFURLGetFileSystemRepresentation(executable, true, (UInt8 *)executablePath, sizeof executablePath)) {
 		CFRelease(executable);

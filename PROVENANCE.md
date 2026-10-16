@@ -23,10 +23,12 @@ error was caught by reading the two SDKs' `LSInfo.h` side by side and is recorde
 `kLSApplicationNotFoundErr` is **-10814**. The status enum is now transcribed from `LSInfo.h` rather than
 recalled.
 
-**AND ONE DOOR THIS COMPONENT NEEDED IS BROKEN UNDERNEATH IT.** `CFBundleCopyExecutableURL` answers NULL for a
-MODERN `.app` in this tree's Core Foundation — **MEASURED**, with the real `Workspace.app` as well as a fixture —
-so `LSOpen.c` resolves the executable from `CFBundleExecutable` and the two layouts Apple documents instead.
-The fix belongs in `libagora-core`, and the workaround is named here so it is not mistaken for the design.
+**AND ONE DOOR THIS COMPONENT NEEDED WAS BROKEN UNDERNEATH IT, AND WAS FIXED THERE.** `CFBundleCopyExecutableURL`
+answered NULL for a MODERN `.app` in this tree's Core Foundation — **MEASURED**, with the real `Workspace.app`
+as well as a fixture — because `_CFBundleGetPlatformExecutablesSubdirectoryName()` returned the HOST's name
+(`Linux`) and so searched `Contents/Linux` rather than `Contents/MacOS`. **FIXED in `libagora-core`**: Agora's
+bundles use Apple's layout, so that answer is `MacOS` on every platform Agora targets, and `LSOpen.c` resolves
+the executable through `CFBundleCopyExecutableURL` again, which is Apple's own door.
 `LSOpenCFURLRef` is Apple's signature exactly; `LSOpenURLsWithRole` takes Apple's name with the Carbon
 parameters dropped, said at its door.
 
