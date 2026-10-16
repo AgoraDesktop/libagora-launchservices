@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Writer.app — a fixture AGORA application, in the shape every Agora application ships: a bundle whose
+  Info.plist declares its types the Apple way. It OWNS `com.agora.writer.document`, so it is the type's
+  owner and the preferred default application for it.
+-->
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>com.agora.writer</string>
+	<key>CFBundleName</key>
+	<string>Writer</string>
+	<key>CFBundleExecutable</key>
+	<string>Writer</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>com.agora.writer.document</string>
+			<key>UTTypeDescription</key>
+			<string>Writer Document</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.text</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>wrt</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-agora-writer</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Writer Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.agora.writer.document</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

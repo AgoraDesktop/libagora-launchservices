@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Legacy.app — a fixture AGORA application that declares its document types the OLD way, with
+  CFBundleTypeExtensions rather than LSItemContentTypes and with no UTExportedTypeDeclarations at all. It
+  is here so the legacy path is measured and not merely written: "lgy" is a type nothing declares, so it
+  gets a dyn. identifier, and Legacy.app is still found as the handler.
+-->
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>com.agora.legacy</string>
+	<key>CFBundleName</key>
+	<string>Legacy</string>
+	<key>CFBundleExecutable</key>
+	<string>Legacy</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Legacy Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>lgy</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

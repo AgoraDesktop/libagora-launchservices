@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Viewer.app — a fixture AGORA application that OWNS nothing. It views Writer documents and, by declaring
+  `public.image`, any item whose type CONFORMS to an image: that second claim is what exercises the
+  conformance direction of "Open With" (an item's type conforming to a type the application names).
+-->
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>com.agora.viewer</string>
+	<key>CFBundleName</key>
+	<string>Viewer</string>
+	<key>CFBundleExecutable</key>
+	<string>Viewer</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.agora.writer.document</string>
+				<string>public.image</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>
