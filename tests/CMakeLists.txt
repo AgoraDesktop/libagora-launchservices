@@ -21,3 +21,11 @@ set(_agora_runtime_dirs
 list(REMOVE_DUPLICATES _agora_runtime_dirs)
 string(REPLACE ";" ":" _agora_ld_path "${_agora_runtime_dirs}")
 set_tests_properties(launchservices PROPERTIES ENVIRONMENT "LD_LIBRARY_PATH=${_agora_ld_path}")
+
+# THE OPENING DOOR: launch an application bundle, and open a document in its default application. The fixture
+# is a bundle the test builds itself — no binary is committed.
+add_executable(launch launch.c)
+target_link_libraries(launch PRIVATE LaunchServices CoreFoundation::CoreFoundation)
+
+add_test(NAME launch COMMAND launch)
+set_tests_properties(launch PROPERTIES ENVIRONMENT "LD_LIBRARY_PATH=${_agora_ld_path}")

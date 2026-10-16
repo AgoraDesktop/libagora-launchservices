@@ -14,5 +14,6 @@
 
 #include <LaunchServices/UTType.h>
 #include <LaunchServices/LSInfo.h>
+#include <LaunchServices/LSOpen.h>
 
 #endif /* LAUNCHSERVICES_LAUNCHSERVICES_H */

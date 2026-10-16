@@ -46,6 +46,12 @@ desktops' applications, so a foreign application is not a handler and is not run
   identifier rather than none;
 - a **moved bundle is re-found after a rescan**, its old path is gone, and the default application follows it.
 
+**A second suite, `launch`, covers the opening doors — 9 checks, 0 fail:** launching an application bundle makes
+its process really run; opening a *document* launches the application that owns its type and **passes the
+document as an argument**; an application that is not there returns an error; and `LSOpenURLsWithRole` opens an
+array and names what it launched. The fixture is a bundle the test builds itself, whose executable records the
+arguments it was given — so "it ran" is a file on disk and not a line of output.
+
 ## The doors
 
 **`UTType.h`** — `UTTypeCreatePreferredIdentifierForTag`, `UTTypeCreateAllIdentifiersForTag`,
@@ -56,10 +62,15 @@ desktops' applications, so a foreign application is not a handler and is not run
 `LSCopyKindStringForURL`, the `LSCopy`/`LSSet` default-handler pairs, and the Agora-owned
 `AGLaunchServicesReset`.
 
+**`LSOpen.h`** — `LSOpenCFURLRef` (Apple's own CF-only signature) and `LSOpenURLsWithRole` (Apple's name,
+with the Carbon parameters dropped). It **launches**: the application's process is spawned, and a *document*
+opens in the application that owns its type with the document passed as an argument.
+
 ### What is deliberately not here
 
-- **No launch.** *Opening* an item (`LSOpenCFURLRef`) belongs to the session layer; this library answers
-  *which* application and stops there.
+- **No activation, single-instance or lifetime.** Launching here SPAWNS a process and stops. Bringing the
+  application to the front, routing a document to an already-running instance, and reaping the child are the
+  **session's** (`../WORKSPACE-PLAN.md` §2, W13); a launched process is a child this library does not reap.
 - **No daemon.** The scan is once, lazily, on the first question; `AGLaunchServicesReset` is how a caller that
   changed the world says so. macOS rescans from a daemon; Agora will not grow one until a second consumer
   wants it.

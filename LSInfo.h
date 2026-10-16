@@ -31,9 +31,23 @@ enum {
 };
 typedef UInt32 LSRolesMask;
 
-/* APPLE'S STATUS FOR "NOBODY OPENS THIS", returned by `LSGetApplicationForURL`. */
+/* ============================================================================================ *
+ * APPLE'S OWN STATUS VALUES, WITH APPLE'S OWN VALUES — measured from the 10.6 `LSInfo.h` AFTER     *
+ * this header had one of them wrong: it carried `kLSApplicationNotFoundErr = -10811`, and -10811 is  *
+ * `kLSNotAnApplicationErr`; Apple's `kLSApplicationNotFoundErr` is **-10814**. The values are now   *
+ * transcribed rather than recalled.                                                                  *
+ * ============================================================================================ */
 enum {
-	kLSApplicationNotFoundErr = -10811
+	kLSAppInTrashErr            = -10660,
+	kLSUnknownErr               = -10810,
+	kLSNotAnApplicationErr      = -10811,
+	kLSDataUnavailableErr       = -10813,
+	kLSApplicationNotFoundErr   = -10814,
+	kLSUnknownTypeErr           = -10815,
+	kLSLaunchInProgressErr      = -10818,
+	kLSServerCommunicationErr   = -10822,
+	kLSNoLaunchPermissionErr    = -10826,
+	kLSNoExecutableErr          = -10827
 };
 
 /* ============================================================================================ *
