@@ -103,7 +103,7 @@ Boolean UTTypeEqual(CFStringRef inUTI1, CFStringRef inUTI2);
  * `UTTypeTagSpecification` — or NULL for a dynamic type no bundle declared. */
 CFDictionaryRef UTTypeCopyDeclaration(CFStringRef inUTI);
 
-/* THE USER-VISIBLE NAME, which is what the Finder's `Kind` column shows. */
+/* THE USER-VISIBLE NAME, which is what the reference file manager's `Kind` column shows. */
 CFStringRef UTTypeCopyDescription(CFStringRef inUTI);
 
 /* THE BUNDLE THAT DECLARED IT, or NULL for a built-in or dynamic type. */
