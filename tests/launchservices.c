@@ -123,6 +123,22 @@ int main(void)
 	      "the default application is the bundle that owns the type");
 	if (def != NULL) CFRelease(def);
 
+	/* ---- 5b. the bundle identifier back to the bundle ------------------------------------ */
+	/* **THE DOOR A SHELL NEEDS, because the window server publishes a window's `app_id` and not its path.** An
+	 * identifier maps to the one bundle that declares it; an unknown one answers with an EMPTY ARRAY rather than
+	 * NULL, so a caller iterates without a special case. */
+	{
+		CFArrayRef byID = LSCopyApplicationURLsForBundleIdentifier(CFSTR("com.agora.writer"), NULL);
+
+		check(byID != NULL && CFArrayGetCount(byID) == 1 && lastNameIs(CFArrayGetValueAtIndex(byID, 0),
+			"Writer.app"), "a bundle identifier resolves to its bundle");
+		if (byID != NULL) CFRelease(byID);
+		byID = LSCopyApplicationURLsForBundleIdentifier(CFSTR("io.github.agoradesktop.nothing"), NULL);
+		check(byID != NULL && CFArrayGetCount(byID) == 0,
+		      "and an identifier nothing declares is an empty array, not NULL");
+		if (byID != NULL) CFRelease(byID);
+	}
+
 	/* A user's explicit choice overrides the owner. */
 	LSSetDefaultRoleHandlerForContentType(CFSTR("com.agora.writer.document"), kLSRolesAll, CFSTR("com.agora.viewer"));
 	def = NULL;

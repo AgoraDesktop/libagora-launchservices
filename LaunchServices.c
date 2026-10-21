@@ -434,6 +434,32 @@ OSStatus LSGetApplicationForURL(CFURLRef inURL, LSRolesMask inRoleMask, CFURLRef
 	return status;
 }
 
+/* **THE IDENTIFIER BACK TO THE BUNDLE.** The registry already holds each application's bundle id (it is what the
+ * default-handler tables are keyed by), so this is a walk and a compare — the door mattered because there was no
+ * way to ASK from outside, and a shell that knows an application by the `app_id` on its windows needs its bundle
+ * to read a name and an icon. An identifier nothing declares answers with an empty array, like every other
+ * LSCopy door here; `outError` is part of Apple's signature and is left alone, because a registry that has simply
+ * never seen the bundle has not failed. */
+CFArrayRef LSCopyApplicationURLsForBundleIdentifier(CFStringRef inBundleIdentifier, CFErrorRef *outError)
+{
+	CFMutableArrayRef out;
+	AGApplication *app;
+
+	_AGLSInitialize();
+	if (outError != NULL) {
+		*outError = NULL;
+	}
+	out = CFArrayCreateMutable(NULL, 0, &kCFTypeArrayCallBacks);
+	if (out == NULL || inBundleIdentifier == NULL) {
+		return out;
+	}
+	app = findAppByBundleID(inBundleIdentifier);
+	if (app != NULL) {
+		CFArrayAppendValue(out, app->url);
+	}
+	return out;
+}
+
 CFStringRef LSCopyKindStringForURL(CFURLRef inURL)
 {
 	_AGLSInitialize();

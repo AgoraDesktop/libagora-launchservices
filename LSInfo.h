@@ -66,6 +66,14 @@ OSStatus LSGetApplicationForURL(CFURLRef inURL, LSRolesMask inRoleMask, CFURLRef
 /* EVERY application that opens the item — the "Open With" menu, owners first. */
 CFArrayRef LSCopyApplicationURLsForURL(CFURLRef inURL, LSRolesMask inRoleMask);
 
+/* **THE APPLICATION BUNDLES THAT DECLARE THIS IDENTIFIER** — Apple's door, and the one a shell asks when it
+ * knows an application by name rather than by file. The window server publishes a window's `app_id`, which is
+ * the bundle identifier; this turns that back into the bundle on disk, which is what a name and an icon are read
+ * from. Apple's signature takes an `outError`; Agora's registry cannot fail to answer, so it is accepted and left
+ * alone, and an identifier nothing declares gets an EMPTY ARRAY rather than NULL — the same answer
+ * `LSCopyApplicationURLsForURL` gives, and one a caller can iterate without a special case. */
+CFArrayRef LSCopyApplicationURLsForBundleIdentifier(CFStringRef inBundleIdentifier, CFErrorRef *outError);
+
 /* THE "Kind" STRING for an item's type: "JPEG image", "Folder", "Writer Document". */
 CFStringRef LSCopyKindStringForURL(CFURLRef inURL);
 
