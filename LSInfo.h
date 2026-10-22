@@ -1,8 +1,10 @@
 /*
  * LSInfo.h — Launch Services' questions about applications: what opens this, and what is it called.
  *
- * Copyright © 2026 Kyle J. Cardoza. MIT licensed — see LICENSE.
- * SPDX-License-Identifier: MIT
+ * Copyright © 2026 Kyle J. Cardoza.
+ * SPDX-FileCopyrightText: 2026 Kyle J. Cardoza
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Portions of this file may derive from GNUstep; see THIRD-PARTY.md.
  *
  * THE APPLICATION REGISTRY IS AGORA BUNDLES ONLY (WORKSPACE-PLAN.md §2, F1). Agora does not run other
  * desktops' applications, so the scan reads `.app` bundles whose `Info.plist` declares document types and

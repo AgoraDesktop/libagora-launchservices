@@ -1,8 +1,10 @@
 /*
  * UTType.c — the Uniform Type Identifier registry, and the seed of Apple's built-in types.
  *
- * Copyright © 2026 Kyle J. Cardoza. MIT licensed — see LICENSE.
- * SPDX-License-Identifier: MIT
+ * Copyright © 2026 Kyle J. Cardoza.
+ * SPDX-FileCopyrightText: 2026 Kyle J. Cardoza
+ * SPDX-License-Identifier: LGPL-3.0-or-later
+ * Portions of this file may derive from GNUstep; see THIRD-PARTY.md.
  *
  * A TYPE IS A NODE with a conforms-to list and a tag table, and the whole registry is a flat array of them.
  * LINEAR SEARCH IS THE RIGHT SHAPE HERE AND NOT A SHORTCUT: a desktop's type set is tens to hundreds of

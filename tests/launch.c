@@ -1,8 +1,10 @@
 /*
  * launch.c — the opening door: `LSOpenCFURLRef` and `LSOpenURLsWithRole`.
  *
- * Copyright © 2026 Kyle J. Cardoza. MIT licensed — see LICENSE.
- * SPDX-License-Identifier: MIT
+ * Copyright © 2026 Kyle J. Cardoza.
+ * SPDX-FileCopyrightText: 2026 Kyle J. Cardoza
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Portions of this file may derive from GNUstep; see THIRD-PARTY.md.
  *
  * WHAT THIS HOLDS UP: an application bundle is LAUNCHED — its process really runs — and a DOCUMENT is launched
  * in the application that owns its type, with the document passed as an argument. The fixture is built here
