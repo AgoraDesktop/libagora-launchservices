@@ -4,7 +4,6 @@
  * Copyright © 2026 Kyle J. Cardoza.
  * SPDX-FileCopyrightText: 2026 Kyle J. Cardoza
  * SPDX-License-Identifier: LGPL-3.0-or-later
- * Portions of this file may derive from GNUstep; see THIRD-PARTY.md.
  *
  * THE SPAWN IS `posix_spawn`, NOT `NSTask`. `NSTask` lives in Foundation, and Foundation sits ABOVE Launch
  * Services in this tree's stack (`libagora-launchservices` links Core Foundation alone) — a Launch Services

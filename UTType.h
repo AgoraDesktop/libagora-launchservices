@@ -4,7 +4,6 @@
  * Copyright © 2026 Kyle J. Cardoza.
  * SPDX-FileCopyrightText: 2026 Kyle J. Cardoza
  * SPDX-License-Identifier: LGPL-3.0-or-later
- * Portions of this file may derive from GNUstep; see THIRD-PARTY.md.
  *
  * THE MODEL IS APPLE'S AND ONLY APPLE'S (WORKSPACE-PLAN.md §2, F1). A type is a reverse-DNS identifier —
  * `public.jpeg`, `com.apple.application-bundle` — with a CONFORMANCE HIERARCHY above it and a set of TAGS

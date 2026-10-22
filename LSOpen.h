@@ -4,7 +4,6 @@
  * Copyright © 2026 Kyle J. Cardoza.
  * SPDX-FileCopyrightText: 2026 Kyle J. Cardoza
  * SPDX-License-Identifier: LGPL-3.0-or-later
- * Portions of this file may derive from GNUstep; see THIRD-PARTY.md.
  *
  * `LSOpenCFURLRef` IS APPLE'S OWN SIGNATURE AND IS CF-ONLY, so it is transcribed exactly: a URL in, the URL
  * of the application actually launched out, and an OSStatus.

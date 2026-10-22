@@ -4,7 +4,6 @@
  * Copyright © 2026 Kyle J. Cardoza.
  * SPDX-FileCopyrightText: 2026 Kyle J. Cardoza
  * SPDX-License-Identifier: LGPL-3.0-or-later
- * Portions of this file may derive from GNUstep; see THIRD-PARTY.md.
  *
  * NOT INSTALLED AND NOT PUBLIC. `UTType.c` owns the type registry; `LaunchServices.c` owns the application
  * registry and the scan. Each needs the other — a type is declared by an application, and an application is

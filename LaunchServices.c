@@ -4,7 +4,6 @@
  * Copyright © 2026 Kyle J. Cardoza.
  * SPDX-FileCopyrightText: 2026 Kyle J. Cardoza
  * SPDX-License-Identifier: LGPL-3.0-or-later
- * Portions of this file may derive from GNUstep; see THIRD-PARTY.md.
  *
  * THE APPLICATION UNIVERSE IS CLOSED (WORKSPACE-PLAN.md §2, F1). The scan reads `.app` bundles — this
  * desktop's own applications — and their `Info.plist`, and it reads NOTHING ELSE: no `.desktop` file, no
